@@ -12,7 +12,9 @@ Our experiments show that HardCoRe-NAS generates state-of-the-art architectures,
 
 <object data="https://github.com/Alibaba-MIIL/HardCoReNAS/blob/main/images/hardcorenas_system.pdf" type="application/pdf" width="700px" height="700px">
     <embed src="https://github.com/Alibaba-MIIL/HardCoReNAS/blob/main/images/hardcorenas_system.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/Alibaba-MIIL/HardCoReNAS/blob/main/images/hardcorenas_system.pdf">Download PDF</a>.</p>
+	<p align="center">
+	    <img src="images/hardcorenas_system.png" alt="hardcorenas_system" width="80%">
+	</p>
     </embed>
 </object>
 
