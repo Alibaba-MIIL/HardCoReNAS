@@ -16,6 +16,5 @@ Our experiments show that HardCoRe-NAS generates state-of-the-art architectures,
     </embed>
 </object>
 
-
 ### WIP
 The code is being prepared for a public release - watch this project to be notified.
