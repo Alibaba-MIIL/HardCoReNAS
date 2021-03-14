@@ -1,6 +1,6 @@
-# HardCoRe-NAS: Hard Constrained diffeRentiableNeural Architecture Search
+# HardCoRe-NAS: Hard Constrained diffeRentiable Neural Architecture Search
 Code accompanying the paper:
-> [HardCoRe-NAS: Hard Constrained diffeRentiableNeural Architecture Search](https://arxiv.org/abs/2102.11646)\
+> [HardCoRe-NAS: Hard Constrained diffeRentiable Neural Architecture Search](https://arxiv.org/abs/2102.11646)\
 > Niv Nayman, Yonathan Aflalo, Asaf Noy, Lihi Zelnik-Manor.\
 > _arXiv:2102.11646_.
 
@@ -11,7 +11,7 @@ In this work we resolve this by introducing Hard Constrained diffeRentiable NAS 
 Our experiments show that HardCoRe-NAS generates state-of-the-art architectures, surpassing other NAS methods, while strictly satisfying the hard resource constraints without any tuning required.
 
 <p align="center">
-    <img src="images/hardcorenas_system.png" alt="hardcorenas_system" width="40%">
+    <img src="images/hardcorenas_system.png" alt="hardcorenas_system" width="60%">
     <img src="images/from_scratch.png" alt="from_scratch" width="35%">
 </p>
 
@@ -20,15 +20,15 @@ Appear in [Docker/requirements.txt](Docker/requirements.txt)
 
 For building a docker image:
 ```
-docker build -f Docker/Dockerfile -t hardcore_nas
+docker build -f Docker/Dockerfile -t hardcore_nas .
 ```
 
 ### The Search Space
 The search space is described in the following:
 
 <p align="center">
-    <img src="images/search_space.png" alt="search_space_fig" width="35%">
-    <img src="images/search_space_table.png" alt="search_space_tab" width="45%">
+    <img src="images/search_space.png" alt="search_space_fig" width="40%">
+    <img src="images/search_space_table.png" alt="search_space_tab" width="55%">
 </p>
 
 A generated architecture is encoded in a string of the form:
@@ -81,7 +81,6 @@ python -u ./train.py
 --drop=0.3
 --drop-path=0.2
 ```
-The output checkpoint is saved at: outputs/train/&lt;date&gt;-&lt;time&gt;-mobilenasnet-&lt;input resolution&gt;/model_best.pth.tar
 
 We provide such an (upgraded) output [checkpoint for download](https://miil-public-eu.oss-eu-central-1.aliyuncs.com/public/HardCoReNAS/w_heaviest.pth.tar).
 
@@ -103,7 +102,6 @@ python -u ./train.py
 --real_KD
 --initial-checkpoint_IKD=<A path to the one-shot model's weights, pretrained via the heaviest sub-network>
 ```
-The output checkpoint is saved at: outputs/train/&lt;date&gt;-&lt;time&gt;-mobilenasnet-&lt;input resolution&gt;/model_best.pth.tar
 
 We provide an output [checkpoint for download](https://miil-public-eu.oss-eu-central-1.aliyuncs.com/public/HardCoReNAS/w_star.pth.tar).
 
@@ -120,7 +118,6 @@ For loading a pre-measured latency LUT, add:
 ```
 --lut_filename=<The full path to the pre-measured latency LUT to be loaded>
 ```
-The output checkpoint is saved at: outputs/train/&lt;date&gt;-&lt;time&gt;-mobilenasnet-&lt;input resolution&gt;/model_best.pth.tar
 
 ### Fine-tune
 ```
@@ -149,6 +146,12 @@ or:
 ```
 The output checkpoint is saved at: outputs/train/&lt;date&gt;-&lt;time&gt;-mobilenasnet-&lt;input resolution&gt;/model_best.pth.tar
 
+### Output Checkpoints
+The output checkpoints are saved at: 
+```
+outputs/train/<date>-<time>-mobilenasnet-<input resolution>/model_best.pth.tar
+```
+
 ### Distributed Training
 For applying distributed training of several GPU cores, replace ``python -u <Path to script>`` with:
 ```
@@ -158,15 +161,20 @@ python -u -m torch.distributed.launch --nproc_per_node=<Number of GPUs> --nnodes
 ## Inference
 ```
 python ./validate.py 
-<Path to dataset>
+<Path to validation dataset>
 -b=512
 --mobilenet_string=<The string that encodes the generated architecture>
 --checkpoint=<A path to the fine-tuned generated model's weights>
 ```
 
+Alternatively, you can download a checkpoint from an url using the option 
+```
+--url_checkpoint=<url from checkpoint, e.g. https://miil-public-eu.oss-eu-central-1.aliyuncs.com/public/HardCoReNAS/HardCoreNAS_F_Blue_60ms_78.1_8b7407ef.pth>
+```
+
 ### Reproducing the paper results
 <p align="center">
-    <img src="images/fine_tune.png" alt="fine_tune" width="40%">
+    <img src="images/fine_tune.png" alt="fine_tune" width="60%">
 </p>
 
  Model | Latency | Red | Green | Blue |
@@ -220,6 +228,8 @@ If you use any part of this code in your research, please cite our [paper](https
 ```
 
 ## Acknowledgements
+We thank Hussam Lawen for assistance with deployment practices and Matan Protter and Avi Ben Cohen for discussions and comments.
+
 Many supporting components of this code implementation are adapted from the excellent 
 [repository of Ross Wightman](https://github.com/rwightman/pytorch-image-models). 
 Check it out and give it a star while you are at it.
