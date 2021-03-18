@@ -93,8 +93,7 @@ parser.add_argument('--resnet_structure', type=int, nargs='+', default=[3, 4, 6,
 parser.add_argument('--resnet_block', default='Bottleneck', type=str, metavar='block',
                     help='custom resnet block')
 
-parser.add_argument('--url_checkpoint', default='', type=str, metavar='block',
-                    help='url of checkpoint')
+
 
 add_nas_to_parser(parser)
 
@@ -131,10 +130,6 @@ def validate(args):
         use_swish=args.use_swish
     )
     data_config = resolve_data_config(vars(args), model=model)
-    if args.url_checkpoint:
-        state_dict = model_zoo.load_url(args.url_checkpoint, progress=True, map_location='cpu')
-        model.load_state_dict(state_dict, strict=True)
-
     if args.checkpoint:
         load_checkpoint(model, args.checkpoint, True, strict=True)
 

@@ -46,6 +46,11 @@ def load_state_dict(checkpoint_path, use_ema=False):
 
 
 def load_checkpoint(model, checkpoint_path, use_ema=False, strict=True):
+    if checkpoint_path.startswith('http'):
+        state_dict = model_zoo.load_url(checkpoint_path, progress=True, map_location='cpu')
+        model.load_state_dict(state_dict, strict=strict)
+        return
+
     state_dict = load_state_dict(checkpoint_path, use_ema)
     try:
         model.load_state_dict(state_dict, strict=strict)
